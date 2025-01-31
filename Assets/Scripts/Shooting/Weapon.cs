@@ -16,7 +16,6 @@ namespace Game1.Shooting
         [SerializeField]
         private float _damage = 1f;
 
-
         [SerializeField]
         private float _bulletMaxFlyDistance = 10f; // Максимальная дистанция полета пули
 
@@ -35,7 +34,6 @@ namespace Game1.Shooting
             target.Normalize();
 
             bullet.Initialize(target, _bulletMaxFlyDistance, _bulletFlySpeed, _damage);
-
         }
     }
 }

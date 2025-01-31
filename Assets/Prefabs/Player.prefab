@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9499e9ccaf4c1b4f90d545353823551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _n: 2
 --- !u!114 &2924300590387952945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99120d025a762ec49a3d07ff83b0c3e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  Speed: 3
   _maxRadiansDelta: 10
 --- !u!114 &8093226445071717465
 MonoBehaviour:
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseWeaponPrefab: {fileID: -2201237433379748083, guid: c0b2abbbebe0d3b41a643dc82927bf0e, type: 3}
   _hand: {fileID: 2159780255934314767}
-  _health: 2
+  _health: 5
 --- !u!143 &8126467931192821979
 CharacterController:
   m_ObjectHideFlags: 0

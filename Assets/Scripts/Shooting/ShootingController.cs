@@ -10,8 +10,6 @@ namespace Game1.Shooting
 
         public Vector3 TargetPosition => _target.transform.position;
 
-      //  public bool HasTarget {  get { return _target != null; } }
-
         private Weapon _weapon;
 
 
@@ -27,8 +25,6 @@ namespace Game1.Shooting
             {
                 if (HasTarget)
                     _weapon.Shoot(TargetPosition);
-               // var target = transform.forward * 100f;
-               // _weapon.Shoot(target);
 
                 _nextShootTimerSec = _weapon.ShootFrequencySec;
             }
@@ -36,6 +32,9 @@ namespace Game1.Shooting
 
         public void SetWeapon(Weapon weaponPrefab, Transform hand)
         {
+            if (_weapon != null)
+                Destroy(_weapon.gameObject);
+
             _weapon = Instantiate(weaponPrefab, hand); // Создание оружия в руке
             _weapon.transform.localPosition = Vector3.zero; // Позиция оружия относительно руки
             _weapon.transform.localRotation = Quaternion.identity;
@@ -48,17 +47,17 @@ namespace Game1.Shooting
             var position = _weapon.transform.position;
             var radius = _weapon.ShootRadius;
             // var mask = LayerUtils.EnemyMask;
-            int mask;
+            int mask = 0;
             if (gameObject.layer == LayerMask.NameToLayer(LayerUtils.EnemyLayerName))
             {
                 mask = LayerUtils.PlayerMask;
             }
-            else
+            else if (gameObject.layer == LayerMask.NameToLayer(LayerUtils.PlayerLayerName))
             {
                 mask = LayerUtils.EnemyMask;
             }
 
-            var size = Physics.OverlapSphereNonAlloc(position, radius, _colliders, mask); // Запускает сферу вокруг указанной позиции
+            var size = Physics.OverlapSphereNonAlloc(position, radius, _colliders, mask);//Запускает сферу вокруг указанной позиции. Size - размер коллайдера(объектов в сфере: 0,1,2)
             if (size > 0)
             { 
                 for (int i = 0; i < size; i++)

@@ -22,10 +22,13 @@ namespace Game1.Camera
 
         protected void LateUpdate()
         {
-            Vector3 targetRotation = _rotationOffset - _followCameraOffset;
+            if (_player != null)
+            {
+                Vector3 targetRotation = _rotationOffset - _followCameraOffset;
 
-            transform.position = _player.transform.position + _followCameraOffset;
-            transform.rotation = Quaternion.LookRotation( targetRotation, Vector3.up ); // Установка поворота по направлению взгляда (наше целевое направление)
+                transform.position = _player.transform.position + _followCameraOffset;
+                transform.rotation = Quaternion.LookRotation(targetRotation, Vector3.up); // Установка поворота по направлению взгляда (наше целевое направление)
+            }
         }
     }
 }

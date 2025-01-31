@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using Game1.Movement;
+using Game1.PickUp;
 using Game1.Shooting;
 using UnityEngine;
+using Game1.Bonus;
 
 namespace Game1
 {
     [RequireComponent(typeof(CharMovementController), typeof(ShootingController))]
 
-    public class BaseCharacter : MonoBehaviour
+    public abstract class BaseCharacter : MonoBehaviour
     {
         [SerializeField]
         private Weapon _baseWeaponPrefab;
@@ -27,14 +27,14 @@ namespace Game1
         protected void Awake()
         {
             _movementDirectionSource = GetComponent<IMovementDirectionSource>();
-
             _characterMovementController = GetComponent<CharMovementController>();
             _shootingController = GetComponent<ShootingController>();
         }
 
         protected void Start()
         {
-            _shootingController.SetWeapon(_baseWeaponPrefab, _hand);
+            SetWeapon(_baseWeaponPrefab);
+
         }
 
         protected void Update()
@@ -61,6 +61,35 @@ namespace Game1
 
                 Destroy(other.gameObject);
             }
+            else if (LayerUtils.IsPickUp(other.gameObject))
+            {
+                var pickUp = other.gameObject.GetComponent<PickUpWeapon>();
+                pickUp.PickUp(this);
+
+                Destroy(other.gameObject);
+            }
+            else if (LayerUtils.IsBonusSpeed(other.gameObject))
+            {
+                var bonusSpeed = other.gameObject.GetComponent<PickUpBonus>();
+                bonusSpeed.PickUp(this);
+                
+                Destroy(other.gameObject);
+            } 
+        }
+        
+        public void SetWeapon(Weapon weapon)
+        {
+            _shootingController.SetWeapon(weapon, _hand);
+        }
+        public void SetBonus(BonusSpeed bonusSpeed)
+        {         
+            
+            if (bonusSpeed != null)
+            {
+                bonusSpeed.TakeBonus(_characterMovementController); 
+              //  Destroy(bonusSpeed.gameObject); 
+            }
+
         }
     }
 }

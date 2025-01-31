@@ -10,6 +10,5 @@ namespace Game1.Movement
         {
             MovementDirection = Vector3.zero;
         }
-
     }
 }
