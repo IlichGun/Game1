@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using Game1.Movement;
-using Game1.Shooting;
 using UnityEngine;
 
 namespace Game1
@@ -10,7 +7,6 @@ namespace Game1
 
     public class PlayerCharacter : BaseCharacter
     {
-
         
     }
 }
